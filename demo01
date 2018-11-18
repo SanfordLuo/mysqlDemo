@@ -1,0 +1,59 @@
+from pymysql import *
+import time
+
+# conn = connect(host='47.93.233.88', port=3306, user='root', password='1qaz@WSX', database='UI_TEST', charset='utf8')
+
+def creat():
+    userID = "lwx588888"
+    TestModel = "andjnk"
+    Remotelog = "djnsfkjmdf"
+    return userID, TestModel, Remotelog
+
+def upLoad():
+
+    print("下载中...")
+    time.sleep(10)
+    Locallog = "bhjjhnjb"
+    print('下载完成.')
+    return Locallog
+
+def run():
+    print("下载中...")
+    time.sleep(10)
+    ReportUrl = "bhjjhnjb.xsl"
+    print('下载完成.')
+    return ReportUrl
+
+def sqlInsert():
+    params = creat()
+    """增加"""
+    conn = connect(host='47.93.233.88',port=3306,user='root',password='1qaz@WSX',database='UI_TEST',charset='utf8')
+    cs1 = conn.cursor()
+    count = cs1.execute('insert into ui(userID, TestModel, Remotelog) values(%s, %s, %s)', params)  # 增加
+
+    conn.commit()
+    cs1.close()
+    conn.close()
+
+def sqlUpdate():
+    aa = creat()[0]
+    bb = upLoad()
+    params = [aa, bb]
+    conn = connect(host='47.93.233.88',port=3306,user='root',password='1qaz@WSX',database='UI_TEST',charset='utf8')
+    cs1 = conn.cursor()
+    count = cs1.execute('update  ui set Locallog = %s where id = %s', params)  # 更新
+
+
+def sqlSelect():
+    """查询"""
+    conn = connect(host='47.93.233.88',port=3306,user='root',password='1qaz@WSX',database='UI_TEST',charset='utf8')
+    cs1 = conn.cursor()
+    count = cs1.execute('select * from ui')
+    for i in range(count):
+        result = cs1.fetchone()
+        print(result)
+    cs1.close()
+    conn.close()
+
+if __name__ == '__main__':
+    sqlInsert()
